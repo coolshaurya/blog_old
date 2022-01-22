@@ -44,6 +44,23 @@ The major type affects the structure of the data type and it also tells us what 
 
 The major type and the argument are collectively called the _head_ of the data item. After the head, there may or may not be more bytes in data item that also come under the data type. No proper word/term is used to refer to these bytes in the CBOR spec, so in this article I use the term _content bytes_ to refer to the bytes that come after the head of a CBOR data item. A note about https://en.wikipedia.org/wiki/Endianness[endianness] before we proceed: Everything in CBOR is encoded in big-endian.
 
+That is a lot of information and new terminology to take in at once! I've put it all in the following table as a summary. Also, a note about https://en.wikipedia.org/wiki/Endianness[endianness] before we proceed: Everything in CBOR is encoded in big-endian.
+
+// Note: the cols statement is necessary for it to make the proper table
+[cols="2,2,3,4"]
+|===
+
+3+|Head
+.3+|Content bytes (may or may not exist depending on the major type and argument)
+
+2+|First byte
+.2+|Next 0 to 8 bytes: *Argument* (the amount of bytes depend on the additional value)
+
+|Most significant 3 bits: *Major type*
+|Least significant 5 bits: *Additional value*
+
+|===
+
 ==  Integers
 
 Major type 0 and 1 encode integers. Major type 0 encodes a unsigned integer in the range 0 to 2^64^-1 (both inclusive). The value of the integer is the same as the value of the argument.
