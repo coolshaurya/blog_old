@@ -7,9 +7,9 @@ Usually, binary data formats can be decoded and encoded faster than text-based d
 
 == The data item
 
-CBOR organizes data into _data items_. Each data item represents a single chunk of CBOR data. Data items can contain other data items nested inside them. Since CBOR is a binary data item, each data item is essentially some list of bytes (and not Unicode text
+CBOR organizes data into _data items_. Each data item represents a single chunk of CBOR data. Data items can contain other data items nested inside them. Since CBOR is a binary data item, each data item is essentially some list of arbitrary bytes (and not Unicode text
 footnote:[Which link:https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings[can be encoded]
-in either UTF-16 (mostly in Windows™ and Qt) or UTF-8 (more common) or UTF-32 (somewhat rare).], which would be the case in a text-based data format).
+in either UTF-16 (generally frowned upon, but still used in atleast Windows, Qt, JavaScript, Java, UEFI, and https://en.wikipedia.org/wiki/UTF-16#Usage[more].) or UTF-8 (more common) or UTF-32 (very space-inefficent; somewhat rare).], which would be the case in a text-based data format).
 
 The first byte of a data item tells us two important things: its _major type_ and a _additional value_. The 3 most-significant bits make up the major type while the 5 least-significant bits make up the additional value. So, if the first byte is `0b01011010`, the major type will be `0b010` or decimal 2 and the additional value will be `0b11010` or decimal 26. This means that the major type is a number between 0 and 7 (both inclusive) while the additional value is a number between 0 and 31 (both inclusive).
 
