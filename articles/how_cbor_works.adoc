@@ -7,7 +7,7 @@ https://cbor.io[CBOR] is a binary data format that is inspired from
 https://msgpack.org[MessagePack] that aims to be easy and short to implement, have reasonably compact encoding,
 light on CPU usage, and be convertible to and from JSON. One advantage that CBOR has over JSON and other text-based data formats like TOML and CSV is that it is a binary data format rather than a text-based data format.
 
-The difference between binary and text-based data formats is that text-based data formats are encoded in plaintext which most text editors can process easily, while binary data formats are encoded in arbitrary sequences of bytes which cannot be opened easily in text editors. Usually, binary data formats have the advantage of being faster to encode and decode than text-based data formats, while simultaneously being more compact. However, the advantage text-based data formats have is that they are comparatively easier to read because any text editor can open them while binary data formats cannot be conveniently read by a human without custom tools footnote:[Do note that being text-based doesn't guarantee human-readability. The data could be minified or simply be too large or too deeply nested for a human to make sense of.]. The choice between a binary data format and a text-based one generally boils down whether you want more machine-readability or more human-readability footnote:[Unless you're using YAML, which is terrible at both.].
+The difference between binary and text-based data formats is that text-based data formats are encoded in plaintext which most text editors can process easily, while binary data formats are encoded in arbitrary sequences of bytes which cannot be opened easily in text editors. Usually, binary data formats have the advantage of being faster to encode and decode than text-based data formats, while simultaneously being more compact. However, the advantage text-based data formats have is that they are comparatively easier to read because any text editor can open them while binary data formats cannot be conveniently read by a human without custom tools footnote:[Note that being text-based doesn't guarantee human-readability. The data could be minified or simply be too large or too deeply nested for a human to make sense of.]. The choice between a binary data format and a text-based one generally boils down whether you want more machine-readability or more human-readability footnote:[Unless you're using YAML, which is terrible at both.].
 
 == The data item
 
@@ -55,14 +55,14 @@ That is a lot of information and new terminology to take in at once! I've put it
 [cols="2,2,3,4"]
 |===
 
-3+|Head
-.3+|Content bytes (may or may not exist depending on the major type and argument)
-
 2+|First byte
 .2+|Next 0 to 8 bytes: *Argument* (the amount of bytes depend on the additional value)
+.3+|*Content bytes* (may or may not exist depending on the major type and argument)
 
 |Most significant 3 bits: *Major type*
 |Least significant 5 bits: *Additional value*
+
+3+|*Head*
 
 |===
 
