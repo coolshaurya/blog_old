@@ -1,15 +1,20 @@
-= A overview of CBOR's syntax
+= A overview of CBOR
 :toc:
 
-Today, we will be looking at how https://cbor.io[CBOR]'s syntax is structured and how it encodes data. For the unfamiliar, CBOR is a data format that is inspired from JSON and whose data model heavily borrows from JSON, with the major difference being that CBOR is a binary data format while JSON is a text-based data format. This means that JSON is encoded in plaintext which most text editors can process easily, while CBOR is an arbitrary sequence of bytes which cannot be opened easily in text editors.
+== What is CBOR
 
-Usually, binary data formats can be decoded and encoded faster than text-based data formats, while being more compact than text-based data formats. However, text-based formats have the advantage that they are easier to read by a human as any text editor can open them and don't need custom decoders. The choice between a binary data format and a text-based one is a tradeoff between machine-readablility and human-readablility footnote:[Unless you're using YAML, which is terrible at both.].
+https://cbor.io[CBOR] is a binary data format that is inspired from
+https://msgpack.org[MessagePack] that aims to be easy and short to implement, have reasonably compact encoding,
+light on CPU usage, and be convertible to and from JSON. One advantage that CBOR has over JSON and other text-based data formats like TOML and CSV is that it is a binary data format rather than a text-based data format.
+
+The difference between binary and text-based data formats is that text-based data formats are encoded in plaintext which most text editors can process easily, while binary data formats are encoded in arbitrary sequences of bytes which cannot be opened easily in text editors. Usually, binary data formats have the advantage of being faster to encode and decode than text-based data formats, while simultaneously being more compact. However, the advantage text-based data formats have is that they are comparatively easier to read because any text editor can open them while binary data formats cannot be conveniently read by a human without custom tools footnote:[Do note that being text-based doesn't guarantee human-readability. The data could be minified or simply be too large or too deeply nested for a human to make sense of.]. The choice between a binary data format and a text-based one generally boils down whether you want more machine-readability or more human-readability footnote:[Unless you're using YAML, which is terrible at both.].
 
 == The data item
 
 CBOR organizes data into _data items_. Each data item represents a single chunk of CBOR data. Data items can contain other data items nested inside them. Since CBOR is a binary data item, each data item is essentially some list of arbitrary bytes (and not Unicode text
-footnote:[Which link:https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings[can be encoded]
-in either UTF-16 (generally frowned upon, but still used in atleast Windows, Qt, JavaScript, Java, UEFI, and https://en.wikipedia.org/wiki/UTF-16#Usage[more].) or UTF-8 (more common) or UTF-32 (very space-inefficent; somewhat rare).], which would be the case in a text-based data format).
+footnote:[Which https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings[can be encoded]
+in either UTF-16 (generally frowned upon, but still used in atleast Windows, Qt, JavaScript, Java, UEFI, and https://en.wikipedia.org/wiki/UTF-16#Usage[more].) or 
+UTF-8 (more common) or UTF-32 (very space-inefficent; somewhat rare).], which would be the case in a text-based data format).
 
 The first byte of a data item tells us two important things: its _major type_ and a _additional value_. The 3 most-significant bits make up the major type while the 5 least-significant bits make up the additional value. So, if the first byte is `0b01011010`, the major type will be `0b010` or decimal 2 and the additional value will be `0b11010` or decimal 26. This means that the major type is a number between 0 and 7 (both inclusive) while the additional value is a number between 0 and 31 (both inclusive).
 
@@ -99,3 +104,4 @@ Indefinite length strings (both byte and text) work a little differently, after 
 
 So, I hope that this article gave a decent overview of CBOR's syntax. One area that I haven't covered is the https://www.rfc-editor.org/rfc/rfc8949.html#section-3.3[extensiblity that CBOR offers] in the form of custom "simple values" or custom "tagged items".
 https://www.rfc-editor.org/rfc/rfc8949.html[The spec] covers this (and more!) in detail. I may cover these topics in a future article. That's it for this article, thanks for reading.
+

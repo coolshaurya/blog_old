@@ -9,5 +9,5 @@ This is my blog. I post stuff related to code that interests me here.
 |Publication Date|Article
 
 |2021-01-16
-|link:articles/how_cbor_works.adoc[A overview of CBOR's syntax]
+|link:articles/how_cbor_works.adoc[A overview of CBOR]
 |===
